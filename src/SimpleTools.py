@@ -47,4 +47,4 @@ class OneLine:
 			f"file: {self.file}",
 			f"seperation: {self.separation}",
 			f"data: {self.data}"
-		)
+			)
