@@ -2,5 +2,5 @@
 
 ## installation
 `pip install git+https://github.com/JL710/SimpleTools.git`
-## update
+## updating
 `pip install --force-reinstall git+https://github.com/JL710/SimpleTools.git --upgrade`
