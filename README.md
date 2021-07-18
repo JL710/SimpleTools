@@ -1,8 +1,7 @@
-# need-a-name
+# SimpleTools
 
 ## name ideas:
 >- encodo
->- caspec
 >- splisp
->- stools
+>- simpletools
 >- filure
