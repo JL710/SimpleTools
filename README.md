@@ -1,4 +1,7 @@
 # need-a-name
 
 ## name ideas:
->-simplpy
+>- encodo
+>- caspec
+>- splisp
+>- stools
