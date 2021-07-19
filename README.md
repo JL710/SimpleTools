@@ -36,3 +36,8 @@ The `element` will be added to the data and the data file.
 removeElement(element)
 ```
 Removes the `element` from the data list.
+
+### file_create
+```Python
+file_create(file)
+```
