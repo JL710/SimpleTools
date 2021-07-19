@@ -1,8 +1,17 @@
 #Simpletools 0.0.2
 
 def ping():
-	print("[ping]")
+	print("ping")
 	return True
+
+# Create file function
+def file_create(file):
+	try:
+		f = open(file, "r")
+		f.close()
+	except:
+		f = open(file, "w")
+		f.close()
 
 # works with data in one line from the file
 class OneLine:
