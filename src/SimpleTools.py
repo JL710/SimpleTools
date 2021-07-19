@@ -1,7 +1,7 @@
 #Simpletools 0.0.2
 
 def ping():
-	print("ping")
+	print("[ping]")
 	return True
 
 # works with data in one line from the file
