@@ -29,6 +29,7 @@ addElement(element)
 ```
 The `element` can be anything. Recomended are strings and numbers.
 > NOTE: be carefull to not store data within the separation mark.
+
 The `element` will be added to the data and the data file.
 
 ```Python
