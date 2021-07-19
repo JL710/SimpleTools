@@ -9,14 +9,14 @@ pip install git+https://github.com/JL710/SimpleTools.git
 pip install --force-reinstall git+https://github.com/JL710/SimpleTools.git --upgrade
 ```
 ## usage
-```
+```Python
 ping()
 ```
 Returns true and gives output in console
 
 ### OneLine
 OneLine is for data management in a one line file.
-```
+```Python
 Oneline(file, seperation)
 ```
 File needs to be a link to the file.
