@@ -4,7 +4,7 @@ def ping():
 	print("ping")
 	return True
 
-# Create file function
+# Create file
 def file_create(file):
 	try:
 		f = open(file, "r")
@@ -15,12 +15,23 @@ def file_create(file):
 
 # works with data in one line from the file
 class OneLine:
-	def __init__(self, file="", separation=""):
+	def __init__(self, file="", separation="", file_create=None):
+		# create default variables
 		self.file = file
 		self.separation = separation
-		tempfile = open(self.file, "r")
-		self.data = tempfile.readline().split(self.separation)
-		tempfile.close()
+		if file_create == True:	# test if file_create is set
+			try:
+				tempfile = open(self.file, "r")
+				self.data = tempfile.readline().split(self.separation)
+				tempfile.close()
+			except:
+				tempfile = open(self.file, "a+")
+				tempfile.close()
+				self.data = []
+		else:
+				tempfile = open(self.file, "r")
+				self.data = tempfile.readline().split(self.separation)
+				tempfile.close()
 		#print(self.data)
 
 		#adds the element to the file and data
@@ -57,3 +68,4 @@ class OneLine:
 			f"seperation: {self.separation}",
 			f"data: {self.data}"
 			)
+
