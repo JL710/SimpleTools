@@ -1,4 +1,7 @@
 #Simpletools 0.0.2
+import os
+import shutil
+import time
 
 def ping():
 	print("ping")
@@ -69,3 +72,59 @@ class OneLine:
 			f"data: {self.data}"
 			)
 
+# Database
+class Database:
+    def __init__(self, path):
+        self.path = path # save the path
+        if not os.path.exists(self.path):
+            os.mkdir(self.path)
+           
+    def get_tables(self):
+        return os.listdir(self.path)
+        
+    def create_table(self, table_name):
+        os.mkdir(self.path + "/" + table_name)
+        os.mkdir(self.path + "/" + table_name + "/column")
+        
+    def delete_table(self, table_name):
+        #os.rmdir(self.path + "/" + table_name)
+        shutil.rmtree(self.path + "/" + table_name)
+        
+    def create_column(self, table_name, column_name):
+        file = open(self.path + "/" + table_name + "/column/" + column_name, "w")
+        file.close()
+        
+    def delete_column(self, table_name, column_name):
+        os.remove(self.path + "/" + table_name + "/column/" + column_name)
+        
+    def add_data(self, table_name, data):
+        format = True
+        table_path = self.path + "/" + table_name
+        for each in data:
+            if not each[0] in os.listdir(table_path + "/column"):
+                format = False
+        if format == True:
+            data_path = table_path + "/" + str(len(os.listdir(table_path)))
+            os.mkdir(data_path)
+            for each in data:
+                file = open(data_path + "/" + each[0], "w")
+                file.write(each[1])
+                file.close()
+        
+    def delete_data(self, table_name, data_id):
+        shutil.rmtree(self.path + "/" + table_name + "/" + str(data_id))
+        for index, data in enumerate(os.listdir(self.path + "/" + table_name)):
+            if data != "column" and data != str(index + 1):
+                os.rename(self.path + "/" + table_name + "/" + data, self.path + "/" + table_name + "/" + str(index + 1))
+    
+    def get_data_byid(self, table_name, data_id):
+        data_path = self.path + "/" + table_name + "/" + str(data_id)
+        data = []
+        for each in os.listdir(data_path):
+            file = open(data_path + "/" + each, "r")
+            data.append((each, file.read()))
+            file.close()
+        return data
+
+    def get_data_bydata(self, table_name, knwon_data):
+        pass
