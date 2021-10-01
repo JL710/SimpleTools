@@ -90,6 +90,9 @@ class Database:
         #os.rmdir(self.path + "/" + table_name)
         shutil.rmtree(self.path + "/" + table_name)
         
+    def get_table_structure(self, table_name):
+        return os.listdir(self.path + "/" + table_name + "/column")
+        
     def create_column(self, table_name, column_name):
         file = open(self.path + "/" + table_name + "/column/" + column_name, "w")
         file.close()
@@ -126,5 +129,49 @@ class Database:
             file.close()
         return data
 
-    def get_data_bydata(self, table_name, knwon_data):
-        pass
+    def get_data_bydata(self, table_name, known_data): # known_data = [("column", "data"), ("column", "data")]
+        format = True
+        for data in known_data: # test if the column all existing
+            if not data[0] in os.listdir(self.path + "/" + table_name + "/column"):
+                format = False
+
+        if format:
+
+            return_data = []
+
+            for file_path in os.listdir(self.path + "/" + table_name):
+                if file_path != "column":
+                    
+                    # get the data for checking
+                    temp_data = []
+                    for column_file in os.listdir(self.path + "/" + table_name + "/" + file_path):
+                        file = open(self.path + "/" + table_name + "/" + file_path + "/" + column_file)
+                        temp_data.append((column_file, file.read()))
+                        file.close()
+
+                    # if known data in tempdata ...
+                    if all(item in known_data for item in temp_data):
+                        temp_data.append(("id", file_path))
+                        return_data.append(temp_data)
+
+            return return_data
+            
+    def get_data_all(self, table_name):
+        retrun_data = []
+        for data_dir in os.listdir(self.path + "/" + table_name):
+            if data_dir != "column":
+                data = []
+                for data_file in os.listdir(self.path + "/" + table_name + "/" + data_dir):
+                    file = open(self.path + "/" + table_name + "/" + data_dir + "/" + data_file, "r")
+                    data.append((data_file, file.read()))
+                    file.close()
+                data.append(("id", data_dir))
+                retrun_data.append(data)
+        
+        return retrun_data
+            
+    def change_data_byid(self, table_name, data_id, changed_data):
+        file = open(self.path + "/" + table_name + "/" + data_id + "/" + changed_data[0], "w")
+        file.write(changed_data[1])
+        file.close()
+            
