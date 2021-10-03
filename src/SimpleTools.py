@@ -10,10 +10,10 @@ def ping():
 # Create file
 def file_create(file):
 	try:
-		f = open(file, "r")
+		f = open(file, "r", encoding="utf-8")
 		f.close()
 	except:
-		f = open(file, "w")
+		f = open(file, "w", encoding="utf-8")
 		f.close()
 
 # works with data in one line from the file
@@ -24,15 +24,15 @@ class OneLine:
 		self.separation = separation
 		if file_create == True:	# test if file_create is set
 			try:
-				tempfile = open(self.file, "r")
+				tempfile = open(self.file, "r", encoding="utf-8")
 				self.data = tempfile.readline().split(self.separation)
 				tempfile.close()
 			except:
-				tempfile = open(self.file, "a+")
+				tempfile = open(self.file, "a+", encoding="utf-8")
 				tempfile.close()
 				self.data = []
 		else:
-				tempfile = open(self.file, "r")
+				tempfile = open(self.file, "r", encoding="utf-8")
 				self.data = tempfile.readline().split(self.separation)
 				tempfile.close()
 		#print(self.data)
@@ -43,7 +43,7 @@ class OneLine:
 		tempcontent = ""
 		for content in self.data:
 			tempcontent += (content + self.separation)
-		tempfile = open(self.file, "w")
+		tempfile = open(self.file, "w", encoding="utf-8")
 		tempfile.write(tempcontent[:-len(self.separation)])
 		tempfile.close()
 		#print(self.data)
@@ -54,7 +54,7 @@ class OneLine:
 		tempcontent = ""
 		for content in self.data:
 			tempcontent += (content + self.separation)
-		tempfile = open(self.file, "w")
+		tempfile = open(self.file, "w", encoding="utf-8")
 		tempfile.write(tempcontent[:-len(self.separation)])
 		tempfile.close()
 		#print(self.data)
@@ -94,7 +94,7 @@ class Database:
         return os.listdir(self.path + "/" + table_name + "/column")
         
     def create_column(self, table_name, column_name):
-        file = open(self.path + "/" + table_name + "/column/" + column_name, "w")
+        file = open(self.path + "/" + table_name + "/column/" + column_name, "w", encoding="utf-8")
         file.close()
         
     def delete_column(self, table_name, column_name):
@@ -110,7 +110,7 @@ class Database:
             data_path = table_path + "/" + str(len(os.listdir(table_path)))
             os.mkdir(data_path)
             for each in data:
-                file = open(data_path + "/" + each[0], "w")
+                file = open(data_path + "/" + each[0], "w", encoding="utf-8")
                 file.write(each[1])
                 file.close()
         
@@ -124,7 +124,7 @@ class Database:
         data_path = self.path + "/" + table_name + "/" + str(data_id)
         data = []
         for each in os.listdir(data_path):
-            file = open(data_path + "/" + each, "r")
+            file = open(data_path + "/" + each, "r", encoding="utf-8")
             data.append((each, file.read()))
             file.close()
         return data
@@ -141,7 +141,7 @@ class Database:
                     # get the data for checking
                     temp_data = []
                     for column_file in os.listdir(self.path + "/" + table_name + "/" + file_path):
-                        file = open(self.path + "/" + table_name + "/" + file_path + "/" + column_file)
+                        file = open(self.path + "/" + table_name + "/" + file_path + "/" + column_file, encoding="utf-8")
                         temp_data.append((column_file, file.read()))
                         file.close()
                     # if known data in tempdata ...
@@ -156,7 +156,7 @@ class Database:
             if data_dir != "column":
                 data = []
                 for data_file in os.listdir(self.path + "/" + table_name + "/" + data_dir):
-                    file = open(self.path + "/" + table_name + "/" + data_dir + "/" + data_file, "r")
+                    file = open(self.path + "/" + table_name + "/" + data_dir + "/" + data_file, "r", encoding="utf-8")
                     data.append((data_file, file.read()))
                     file.close()
                 data.append(("id", data_dir))
@@ -165,7 +165,7 @@ class Database:
         return retrun_data
             
     def change_data_byid(self, table_name, data_id, changed_data):
-        file = open(self.path + "/" + table_name + "/" + data_id + "/" + changed_data[0], "w")
+        file = open(self.path + "/" + table_name + "/" + data_id + "/" + changed_data[0], "w", encoding="utf-8")
         file.write(changed_data[1])
         file.close()
             
