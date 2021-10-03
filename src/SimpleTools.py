@@ -134,26 +134,20 @@ class Database:
         for data in known_data: # test if the column all existing
             if not data[0] in os.listdir(self.path + "/" + table_name + "/column"):
                 format = False
-
         if format:
-
             return_data = []
-
             for file_path in os.listdir(self.path + "/" + table_name):
                 if file_path != "column":
-                    
                     # get the data for checking
                     temp_data = []
                     for column_file in os.listdir(self.path + "/" + table_name + "/" + file_path):
                         file = open(self.path + "/" + table_name + "/" + file_path + "/" + column_file)
                         temp_data.append((column_file, file.read()))
                         file.close()
-
                     # if known data in tempdata ...
-                    if all(item in known_data for item in temp_data):
+                    if all(item in temp_data for item in known_data):
                         temp_data.append(("id", file_path))
                         return_data.append(temp_data)
-
             return return_data
             
     def get_data_all(self, table_name):
