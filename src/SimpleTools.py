@@ -118,7 +118,8 @@ class Database:
         shutil.rmtree(self.path + "/" + table_name + "/" + str(data_id))
         for index, data in enumerate(os.listdir(self.path + "/" + table_name)):
             if data != "column" and data != str(index + 1):
-                os.rename(self.path + "/" + table_name + "/" + data, self.path + "/" + table_name + "/" + str(index + 1))
+                #os.rename(self.path + "/" + table_name + "/" + data, self.path + "/" + table_name + "/" + str(index + 1)) # produces sometimes an error -> shutil.move is a better way
+                shutil.move(self.path + "/" + table_name + "/" + data, self.path + "/" + table_name + "/" + str(index + 1))
     
     def get_data_byid(self, table_name, data_id):
         data_path = self.path + "/" + table_name + "/" + str(data_id)
