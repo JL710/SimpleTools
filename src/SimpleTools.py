@@ -116,7 +116,9 @@ class Database:
         
     def delete_data(self, table_name, data_id):
         shutil.rmtree(self.path + "/" + table_name + "/" + str(data_id))
-        for index, data in enumerate(os.listdir(self.path + "/" + table_name)):
+        data_file_list = os.listdir(self.path + "/" + table_name)
+        data_file_list.sort()
+        for index, data in enumerate(data_file_list):
             if data != "column" and data != str(index + 1):
                 os.rename(self.path + "/" + table_name + "/" + data, self.path + "/" + table_name + "/" + str(index + 1))
                 #shutil.move(self.path + "/" + table_name + "/" + data, self.path + "/" + table_name + "/" + str(index + 1))
