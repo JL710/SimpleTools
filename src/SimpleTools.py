@@ -2,6 +2,8 @@
 import os
 import shutil
 import time
+import json
+import zipfile
 
 def ping():
 	print("ping")
@@ -169,6 +171,20 @@ class Database:
             
     def change_data_byid(self, table_name, data_id, changed_data):
         file = open(self.path + "/" + table_name + "/" + data_id + "/" + changed_data[0], "w", encoding="utf-8")
-        file.write(changed_data[1])
+        file.write(changed_data[1]) 
         file.close()
-            
+           
+# add directory to zip
+def zip_add_dir(directory, zip_path):
+    if not os.path.isdir(zip_path):
+        with zipfile.ZipFile(zip_path, 'w'):
+            pass
+    with zipfile.ZipFile(zip_path, "a") as zip_file:
+        for root, dirs, files in os.walk(directory):
+            #print(f"root: {root}")
+            #print(f"dirs: {dirs}")
+            #print(f"files: {files}")
+            for file in files:
+                zip_file.write(root + "\\" + file, root[len(directory):] + "\\" + file)
+            print("")
+
