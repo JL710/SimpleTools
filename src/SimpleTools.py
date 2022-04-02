@@ -10,7 +10,7 @@ def ping():
 	return True
 
 # Create file
-def file_create(file):
+def file(file):
 	try:
 		f = open(file, "r", encoding="utf-8")
 		f.close()
